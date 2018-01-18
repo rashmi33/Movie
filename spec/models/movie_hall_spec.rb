@@ -20,10 +20,6 @@ RSpec.describe MovieHall, type: :model do
       FactoryGirl.build(:movie_hall, city: 'ABC').should be_valid
     end
 
-    it "is valid without a no_of_screens" do
-      FactoryGirl.build(:movie_hall, no_of_screens: nil).should be_valid
-    end
-
     it "is invalid without a name" do
       FactoryGirl.build(:movie_hall, name: nil).should_not be_valid
     end
