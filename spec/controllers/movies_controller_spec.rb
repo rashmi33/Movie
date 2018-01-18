@@ -16,7 +16,7 @@ RSpec.describe MoviesController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       movie = FactoryGirl.create(:movie ,movie_hall_id: movie_hall.id,audi_id: audi.id)
-      get :show, params:{ id: movie.id }, format: :json
+      get :show, id: movie.id, format: :json
       response.should have_http_status(:ok)
     end
   end
@@ -26,7 +26,7 @@ RSpec.describe MoviesController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       movie = FactoryGirl.create(:movie ,movie_hall_id: movie_hall.id,audi_id: audi.id)
-      get :edit, params: { id: movie.id }, format: :json
+      get :edit, id: movie.id, format: :json
       response.should have_http_status(:ok)
     end
   end
@@ -35,14 +35,14 @@ RSpec.describe MoviesController, type: :controller do
     it "should create a valid movie with all attributes" do 
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
-      post :create,  params:  movie: { name: Faker::Date.forward(30), duration: Faker::Number.number(3), movie_type: 'U', is_bollywood: "true",genre: Faker::Name.first_name, rating: Faker::Number.number(1), movie_hall_id: movie_hall.id, audi_id: audi.id }, format: :json
+      post :create,  movie: { name: Faker::Date.forward(30), duration: Faker::Number.number(3), movie_type: 'U', is_bollywood: "true",genre: Faker::Name.first_name, rating: Faker::Number.number(1), movie_hall_id: movie_hall.id, audi_id: audi.id}, format: :json
       response.should have_http_status(:ok)
     end
 
     it "should create a valid movie with mandatory attributes only" do 
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
-      post :create, params: movie: { name: Faker::Date.forward(30), movie_type: 'U', rating: Faker::Number.number(1), movie_hall_id: movie_hall.id, audi_id: audi.id }, format: :json
+      post :create, movie: { name: Faker::Date.forward(30), movie_type: 'U', rating: Faker::Number.number(1), movie_hall_id: movie_hall.id, audi_id: audi.id}, format: :json
       response.should have_http_status(:ok)
     end
   end 
@@ -52,7 +52,7 @@ RSpec.describe MoviesController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       movie = FactoryGirl.create(:movie ,movie_hall_id: movie_hall.id,audi_id: audi.id)
-      put :update, params: {id:movie.id, movie: { name: movie.name, duration: movie.duration, movie_type: movie.movie_type, is_bollywood: movie.is_bollywood,genre: movie.genre, rating: movie.rating}}, format: :json
+      put :update, id:movie.id, movie: { name: movie.name, duration: movie.duration, movie_type: movie.movie_type, is_bollywood: movie.is_bollywood,genre: movie.genre, rating: movie.rating}, format: :json
       expect(response).to redirect_to movie_path(movie.id)
     end
   end
@@ -62,7 +62,7 @@ RSpec.describe MoviesController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       movie = FactoryGirl.create(:movie ,movie_hall_id: movie_hall.id,audi_id: audi.id)
-      delete :destroy,params: { id: movie.id}, format: :json
+      delete :destroy,  id: movie.id, format: :json
       response.should have_http_status(:ok)
     end
   end
@@ -72,14 +72,14 @@ RSpec.describe MoviesController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       movie = FactoryGirl.create(:movie ,movie_hall_id: movie_hall.id,audi_id: audi.id)
-      get :show, params: {id:500}, format: :json
+      get :show, id:500, format: :json
       response.should have_http_status(:unprocessable_entity)
     end
     it "should not show invalid attribute" do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       movie = FactoryGirl.create(:movie ,movie_hall_id: movie_hall.id,audi_id: audi.id)
-      get :show, params: { id: 'ABC' }, format: :json
+      get :show, id: 'ABC' , format: :json
       response.should have_http_status(:unprocessable_entity)
     end
   end
@@ -89,7 +89,7 @@ RSpec.describe MoviesController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       movie = FactoryGirl.create(:movie ,movie_hall_id: movie_hall.id,audi_id: audi.id)
-      get :edit, params: {id:500}, format: :json
+      get :edit, id:500, format: :json
       response.should have_http_status(:not_found)
     end
   end
@@ -98,7 +98,7 @@ RSpec.describe MoviesController, type: :controller do
     it 'should not create a movie with invalid attributes' do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
-      post :create,  params: {movie: {name: Faker::Date.forward(30)}},format: :json
+      post :create, movie: {name: Faker::Date.forward(30)},format: :json
       response.should have_http_status(:unprocessable_entity)
     end
 
@@ -106,7 +106,7 @@ RSpec.describe MoviesController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       movie = FactoryGirl.create(:movie ,movie_hall_id: movie_hall.id,audi_id: audi.id)
-      post :create, params: {movie: {name: nil}}, format: :json
+      post :create, movie: {name: nil}, format: :json
       response.should have_http_status(:unprocessable_entity)
     end
   end
@@ -116,7 +116,7 @@ RSpec.describe MoviesController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       movie = FactoryGirl.create(:movie ,movie_hall_id: movie_hall.id,audi_id: audi.id)
-      put :update, params: {id:511,movie: {name: "ABC"}}, format: :json
+      put :update,id:511,movie: {name: "ABC"}, format: :json
       response.should have_http_status(:not_found)
     end
   end 
@@ -125,7 +125,7 @@ RSpec.describe MoviesController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       movie = FactoryGirl.create(:movie ,movie_hall_id: movie_hall.id,audi_id: audi.id)
-      delete :destroy, params: {id:555},format: :json
+      delete :destroy, id:555,format: :json
       response.should have_http_status(:not_found)
     end
   end

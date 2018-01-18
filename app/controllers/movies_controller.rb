@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-	protect_from_forgery
+  protect_from_forgery
   def index
     @movies = Movie.all
     respond_to do |format|
@@ -33,7 +33,7 @@ class MoviesController < ApplicationController
   end
  
   def create
-  	@movie = Movie.new(movie_params)
+    @movie = Movie.new(movie_params)
     if @movie.save
       respond_to do |format|
         format.json { render :json => {:movie => @movie}, status: :ok}
@@ -84,6 +84,6 @@ class MoviesController < ApplicationController
 
   private
   def movie_params
-    params.require(:movie).permit(:name, :duration, :movie_type, :genre, :is_bollywood, :rating, :movie_hall_id, :audi_id)
+    params.require(:movie).permit(:name, :duration, :movie_type, :genre, :is_bollywood, :rating)
   end
 end

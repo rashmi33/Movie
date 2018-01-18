@@ -16,7 +16,7 @@ RSpec.describe UsersController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
-      get :show, params:{id: user.id}, format: :json
+      get :show, id: user.id, format: :json
       response.should have_http_status(:ok)
     end
   end
@@ -26,7 +26,7 @@ RSpec.describe UsersController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
-      get :edit, params:{id: user.id}, format: :json
+      get :edit, id: user.id, format: :json
       response.should have_http_status(:ok)
     end
   end
@@ -35,7 +35,7 @@ RSpec.describe UsersController, type: :controller do
     it "should create a valid user with all attributes" do 
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
-      post :create,  params: { user: { name: Faker::Name.first_name, address: Faker::Address.street_address, phone_no: Faker::Number.number(10), audi_id: audi.id, movie_hall_id:movie_hall.id}}, format: :json
+      post :create,  user: { name: Faker::Name.first_name, address: Faker::Address.street_address, phone_no: Faker::Number.number(10), audi_id: audi.id, movie_hall_id:movie_hall.id}, format: :json
       response.should have_http_status(:ok)
     end
   end 
@@ -45,7 +45,7 @@ RSpec.describe UsersController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
-      put :update, params: {id:user.id, user: { name: user.name, address: user.address, city: user.city}}, format: :json
+      put :update, id:user.id, user: { name: user.name, address: user.address, city: user.city}, format: :json
       expect(response).to redirect_to user_path(user.id)
     end 
   end
@@ -55,7 +55,7 @@ RSpec.describe UsersController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
-      delete :destroy,params: { id: user.id}, format: :json
+      delete :destroy, id: user.id, format: :json
       response.should have_http_status(:ok)
     end
   end
@@ -65,14 +65,14 @@ RSpec.describe UsersController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
-      get :show, params: {id:500}, format: :json
+      get :show, id:500, format: :json
       response.should have_http_status(:unprocessable_entity)
     end
     it "should not show invalid attribute" do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
-      get :show, params: { id: 'ABC' }, format: :json
+      get :show, id: 'ABC', format: :json
       response.should have_http_status(:unprocessable_entity)
     end
   end
@@ -82,7 +82,7 @@ RSpec.describe UsersController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
-      get :edit, params: {id:500}, format: :json
+      get :edit, id:500, format: :json
       response.should have_http_status(:not_found)
     end
   end
@@ -91,13 +91,13 @@ RSpec.describe UsersController, type: :controller do
     it 'should not create a user with invalid attributes' do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
-      post :create,  params: {user: {name: Faker::Date.forward(30)}},format: :json
+      post :create, user: {name: Faker::Date.forward(30)},format: :json
       response.should have_http_status(:unprocessable_entity)
     end
 
     it 'should not create a user with nil values' do
       user= FactoryGirl.create(:user)
-      post :create, params: {user: {name: nil}}, format: :json
+      post :create, user: {name: nil}, format: :json
       response.should have_http_status(:unprocessable_entity)
     end
   end
@@ -107,7 +107,7 @@ RSpec.describe UsersController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
-      put :update, params: {id:511,user: {name: "ABC"}}, format: :json
+      put :update, id:511, user: {name: "ABC"}, format: :json
       response.should have_http_status(:not_found)
     end
   end
@@ -117,7 +117,7 @@ RSpec.describe UsersController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
-      delete :destroy, params: {id:555},format: :json
+      delete :destroy, id:555,format: :json
       response.should have_http_status(:not_found)
     end
   end
