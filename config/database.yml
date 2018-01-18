@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: root
+  password:
+  socket: /tmp/mysql.sock
+
+development:
+  <<: *default
+  database: moviemain_development
+
+test:
+  <<: *default
+  database: moviemain_test
+
+production:
+  <<: *default
+  database: moviemain_production
+  username: moviemain
+  password: <%= ENV['MOVIEMAIN_DATABASE_PASSWORD'] %>
