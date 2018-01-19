@@ -83,6 +83,11 @@ RSpec.describe TypeOfTicketsController, type: :controller do
       put :update, id:511,type_of_ticket: {type_of_ticket: "Silver"}, format: :json
       response.should have_http_status(:not_found)
     end
+    it "should not update the type_of_ticket with invalid attributes" do
+      type_of_ticket = FactoryGirl.create(:type_of_ticket)
+      put :update, id:type_of_ticket.id, type_of_ticket: { type_of_ticket: nil}, format: :json
+      response.should have_http_status(:unprocessable_entity)
+    end
   end 
   context 'DELETE #destroy' do
     it 'should not delete a type_of_ticket with invalid id' do

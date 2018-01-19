@@ -110,6 +110,13 @@ RSpec.describe UsersController, type: :controller do
       put :update, id:511, user: {name: "ABC"}, format: :json
       response.should have_http_status(:not_found)
     end
+    it "should not update the user with invalid attributes" do
+      movie_hall = FactoryGirl.create(:movie_hall)
+      audi = FactoryGirl.create(:audi)
+      user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
+      put :update, id:user.id, user: { name: nil, address: user.address, city: user.city}, format: :json
+      response.should have_http_status(:unprocessable_entity)
+    end 
   end
 
   context 'DELETE #destroy' do

@@ -88,6 +88,11 @@ RSpec.describe MovieHallsController, type: :controller do
       put :update, id:511,movie_hall: {name: "ABC"}, format: :json
       response.should have_http_status(:not_found)
     end
+    it "should not update the movie_hall with invalid attributes" do
+      movie_hall = FactoryGirl.create(:movie_hall)
+      put :update, id:movie_hall.id, movie_hall: { name: nil, address: movie_hall.address, city: movie_hall.city}, format: :json
+      response.should have_http_status(:unprocessable_entity)
+    end
   end 
   context 'DELETE #destroy' do
     it 'should not delete a movie_hall with invalid id' do

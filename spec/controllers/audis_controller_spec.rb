@@ -31,7 +31,7 @@ RSpec.describe AudisController, type: :controller do
   context "POST #create" do 
     it "should create a valid audi with all attributes" do 
       movie_hall = FactoryGirl.create(:movie_hall)
-      post :create, audi: { code: "A7878A", no_of_seats: Faker::Number.number(2), movie_hall_id:movie_hall.id}, format: :json
+      post :create, audi: { code: "A7878A", no_of_seats: Faker::Number.number(2), movie_hall_id:movie_hall.id }, format: :json
       response.should have_http_status(:ok)
     end
   end 
@@ -99,6 +99,12 @@ RSpec.describe AudisController, type: :controller do
       audi = FactoryGirl.create(:audi ,movie_hall_id: movie_hall.id)
       put :update, id:511, audi: {code: "ABC111"}, format: :json
       response.should have_http_status(:not_found)
+    end
+    it 'should not update audi with invalid attributes' do
+      movie_hall = FactoryGirl.create(:movie_hall)
+      audi = FactoryGirl.create(:audi ,movie_hall_id: movie_hall.id)
+      put :update, id: audi.id, audi: { code: nil, no_of_seats: Faker::Number.number(2), movie_hall_id:movie_hall.id }, format: :json
+      response.should have_http_status(:unprocessable_entity)
     end
   end 
   

@@ -27,7 +27,7 @@ RSpec.describe ShowTimesController, type: :controller do
 
   context "POST #create" do 
     it "should create a valid show_time with all attributes" do 
-      post :create, show_time: { time: Faker::Time.forward(30, :morning)}, format: :json
+      post :create, show_time: { time: Faker::Time.forward(30, :morning) }, format: :json
       response.should have_http_status(:ok)
     end
   end 
@@ -35,7 +35,7 @@ RSpec.describe ShowTimesController, type: :controller do
   context "PUT #update" do
     it "should update the show_time with valid attributes" do
       show_time = FactoryGirl.create(:show_time)
-      put :update, id:show_time.id, show_time: { time: show_time.time}, format: :json
+      put :update, id:show_time.id, show_time: { time: show_time.time }, format: :json
       expect(response).to redirect_to show_time_path(show_time.id)
     end
   end
@@ -80,9 +80,13 @@ RSpec.describe ShowTimesController, type: :controller do
   context 'PUT #update' do
     it 'should not update show_time with invalid id' do
       show_time = FactoryGirl.create(:show_time)
-
       put :update, id:511,show_time: {time: "10AM"}, format: :json
       response.should have_http_status(:not_found)
+    end
+    it "should not update the show_time with invalid attributes" do
+      show_time = FactoryGirl.create(:show_time)
+      put :update, id:show_time.id, show_time: { time: nil}, format: :json
+      response.should have_http_status(:unprocessable_entity)
     end
   end 
   context 'DELETE #destroy' do

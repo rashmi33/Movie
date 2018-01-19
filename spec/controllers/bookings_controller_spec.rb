@@ -99,6 +99,12 @@ RSpec.describe BookingsController, type: :controller do
       put :update, id:511,booking: {date_of_movie: "12/12/2018"}, format: :json
       response.should have_http_status(:not_found)
     end
+    it "should not update the booking with invalid attributes" do
+      ticket = FactoryGirl.create(:ticket)
+      booking = FactoryGirl.create(:booking ,ticket_id: ticket.id)
+      put :update, id:booking.id, booking: { date_of_movie: nil, no_of_persons: booking.no_of_persons, amount: booking.amount, seats_alloted: booking.seats_alloted}, format: :json
+      response.should have_http_status(:unprocessable_entity)
+    end
   end 
 
   context 'DELETE #destroy' do
