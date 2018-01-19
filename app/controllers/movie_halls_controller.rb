@@ -3,7 +3,7 @@ class MovieHallsController < ApplicationController
   def index
     @movie_halls = MovieHall.all
     respond_to do |format|
-      format.json { render :json => {:movie_halls => @movie_halls}, status: :ok}
+      format.json { render :json => { :movie_halls => @movie_halls }, status: :ok }
       format.html
     end
   end
@@ -12,11 +12,11 @@ class MovieHallsController < ApplicationController
     begin
       @movie_hall = MovieHall.find(params[:id])
       respond_to do |format|
-        format.json { render :json => {:movie_hall => @movie_hall}, status: :ok}
+        format.json { render :json => { :movie_hall => @movie_hall }, status: :ok }
         format.html
       end
     rescue ActiveRecord::RecordNotFound => e
-      render json: {error: e.message}, status: :unprocessable_entity
+      render json: { error: e.message }, status: :unprocessable_entity
     end
   end
 
@@ -24,11 +24,11 @@ class MovieHallsController < ApplicationController
     begin
       @movie_hall = MovieHall.find(params[:id])
       respond_to do |format|
-        format.json { render :json => {:movie_hall => @movie_hall}, status: :ok}
+        format.json { render :json => { :movie_hall => @movie_hall }, status: :ok }
         format.html
       end
     rescue ActiveRecord::RecordNotFound => e
-      render json: {error: e.message}, status: :not_found
+      render json: { error: e.message }, status: :not_found
     end
   end
  
@@ -36,13 +36,13 @@ class MovieHallsController < ApplicationController
   	@movie_hall = MovieHall.new(movie_hall_params)
     if @movie_hall.save
       respond_to do |format|
-        format.json { render :json => {:movie_hall => @movie_hall}, status: :ok}
-        format.html { redirect_to movie_halls_path}
+        format.json { render :json => { :movie_hall => @movie_hall }, status: :ok }
+        format.html { redirect_to movie_halls_path }
       end
     else
       respond_to do |format|
-        format.json { render :json => {:movie_hall => @movie_hall.errors}, status: :unprocessable_entity}
-        format.html { redirect_to new_movie_hall_path}
+        format.json { render :json => { :movie_hall => @movie_hall.errors }, status: :unprocessable_entity }
+        format.html { redirect_to new_movie_hall_path }
       end
     end
   end
@@ -54,8 +54,8 @@ class MovieHallsController < ApplicationController
         redirect_to @movie_hall
       else
         respond_to do |format|
-          format.json { render :json => {:movie_hall => @movie_hall.errors}, status: :unprocessable_entity}
-          format.html { redirect_to edit_movie_hall_path}
+          format.json { render :json => { :movie_hall => @movie_hall.errors }, status: :unprocessable_entity }
+          format.html { redirect_to edit_movie_hall_path }
         end
       end
     rescue ActiveRecord::RecordNotFound => e
@@ -68,17 +68,17 @@ class MovieHallsController < ApplicationController
       @movie_hall = MovieHall.find(params[:id])
       if @movie_hall.destroy
         respond_to do |format|
-          format.json { render :json => {:message => "Movie Hall was deleted successfully"}, status: :ok}
-          format.html { redirect_to movie_halls_path}
+          format.json { render :json => { :message => 'Movie Hall was deleted successfully' }, status: :ok }
+          format.html { redirect_to movie_halls_path } 
         end
       else
         respond_to do |format|
-          format.json { render :json => {:movie_hall => @movie_hall.errors}, status: :unprocessable_entity}
+          format.json { render :json => { :movie_hall => @movie_hall.errors }, status: :unprocessable_entity }
           format.html
         end
       end
     rescue ActiveRecord::RecordNotFound => e
-      render json: {error: e.message}, status: :not_found
+      render json: { error: e.message} , status: :not_found
     end
   end
 

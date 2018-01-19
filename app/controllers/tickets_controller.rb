@@ -3,7 +3,7 @@ class TicketsController < ApplicationController
   def index
     @tickets = Ticket.all
     respond_to do |format|
-      format.json { render :json => {:tickets => @tickets}, status: :ok}
+      format.json { render :json => { :tickets => @tickets }, status: :ok }
       format.html
     end
   end
@@ -12,11 +12,11 @@ class TicketsController < ApplicationController
     begin
       @ticket = Ticket.find(params[:id])
       respond_to do |format|
-        format.json { render :json => { :ticket => @ticket }, status: :ok}
+        format.json { render :json => { :ticket => @ticket }, status: :ok }
         format.html
       end
     rescue ActiveRecord::RecordNotFound => e
-      render json: {error: e.message}, status: :unprocessable_entity
+      render json: { error: e.message }, status: :unprocessable_entity
     end
   end
 
@@ -24,11 +24,11 @@ class TicketsController < ApplicationController
     begin
       @ticket = Ticket.find(params[:id])
       respond_to do |format|
-        format.json { render :json => {:ticket => @ticket}, status: :ok}
+        format.json { render :json => { :ticket => @ticket }, status: :ok }
         format.html
       end
     rescue ActiveRecord::RecordNotFound => e
-      render json: {error: e.message}, status: :not_found
+      render json: { error: e.message }, status: :not_found
     end
   end
  
@@ -36,13 +36,13 @@ class TicketsController < ApplicationController
   	@ticket = Ticket.new(ticket_params)
     if @ticket.save
       respond_to do |format|
-        format.json { render :json => {:ticket => @ticket}, status: :ok}
-        format.html { redirect_to tickets_path}
+        format.json { render :json => { :ticket => @ticket }, status: :ok }
+        format.html { redirect_to tickets_path }
       end
     else
       respond_to do |format|
-        format.json { render :json => {:ticket => @ticket.errors}, status: :unprocessable_entity}
-        format.html { redirect_to new_ticket_path}
+        format.json { render :json => { :ticket => @ticket.errors }, status: :unprocessable_entity }
+        format.html { redirect_to new_ticket_path }
       end
     end
   end
@@ -54,12 +54,12 @@ class TicketsController < ApplicationController
         redirect_to @ticket
       else
         respond_to do |format|
-          format.json { render :json => {:ticket => @ticket.errors}, status: :unprocessable_entity}
-          format.html { redirect_to edit_ticket_path}
+          format.json { render :json => { :ticket => @ticket.errors }, status: :unprocessable_entity }
+          format.html { redirect_to edit_ticket_path }
         end
       end
     rescue ActiveRecord::RecordNotFound => e
-      render json: {error: e.message}, status: :not_found
+      render json: { error: e.message }, status: :not_found
     end
   end
   
@@ -68,17 +68,17 @@ class TicketsController < ApplicationController
       @ticket = Ticket.find(params[:id])
       if @ticket.destroy
         respond_to do |format|
-          format.json { render :json => {:message => "Ticket was deleted successfully"}, status: :ok}
-          format.html { redirect_to tickets_path}
+          format.json { render :json => { :message => 'Ticket was deleted successfully' }, status: :ok }
+          format.html { redirect_to tickets_path }
         end
       else
         respond_to do |format|
-          format.json { render :json => {:ticket => @ticket.errors}, status: :unprocessable_entity}
+          format.json { render :json => { :ticket => @ticket.errors }, status: :unprocessable_entity }
           format.html
         end
       end
     rescue ActiveRecord::RecordNotFound => e
-      render json: {error: e.message}, status: :not_found
+      render json: { error: e.message }, status: :not_found
     end
   end
 

@@ -3,7 +3,7 @@ class TypeOfTicketsController < ApplicationController
   def index
     @type_of_tickets = TypeOfTicket.all
     respond_to do |format|
-      format.json { render :json => {:type_of_tickets => @type_of_tickets}, status: :ok}
+      format.json { render :json => { :type_of_tickets => @type_of_tickets }, status: :ok }
       format.html
     end
   end
@@ -12,11 +12,11 @@ class TypeOfTicketsController < ApplicationController
     begin
       @type_of_ticket = TypeOfTicket.find(params[:id])
       respond_to do |format|
-        format.json { render :json => { :type_of_ticket => @type_of_ticket }, status: :ok}
+        format.json { render :json => { :type_of_ticket => @type_of_ticket }, status: :ok }
         format.html
       end
     rescue ActiveRecord::RecordNotFound => e
-      render json: {error: e.message}, status: :unprocessable_entity
+      render json: { error: e.message }, status: :unprocessable_entity
     end
   end
 
@@ -24,11 +24,11 @@ class TypeOfTicketsController < ApplicationController
     begin
       @type_of_ticket = TypeOfTicket.find(params[:id])
       respond_to do |format|
-        format.json { render :json => {:type_of_ticket => @type_of_ticket}, status: :ok}
+        format.json { render :json => { :type_of_ticket => @type_of_ticket }, status: :ok }
         format.html
       end
     rescue ActiveRecord::RecordNotFound => e
-      render json: {error: e.message}, status: :not_found
+      render json: { error: e.message }, status: :not_found
     end
   end
  
@@ -36,13 +36,13 @@ class TypeOfTicketsController < ApplicationController
   	@type_of_ticket = TypeOfTicket.new(type_of_ticket_params)
     if @type_of_ticket.save
       respond_to do |format|
-        format.json { render :json => {:type_of_ticket => @type_of_ticket}, status: :ok}
-        format.html { redirect_to type_of_ticket_path}
+        format.json { render :json => { :type_of_ticket => @type_of_ticket }, status: :ok }
+        format.html { redirect_to type_of_ticket_path }
       end
     else
       respond_to do |format|
-        format.json { render :json => {:type_of_ticket => @type_of_ticket.errors}, status: :unprocessable_entity}
-        format.html { redirect_to new_type_of_ticket_path}
+        format.json { render :json => { :type_of_ticket => @type_of_ticket.errors }, status: :unprocessable_entity }
+        format.html { redirect_to new_type_of_ticket_path }
       end
     end
   end
@@ -54,12 +54,12 @@ class TypeOfTicketsController < ApplicationController
         redirect_to @type_of_ticket
       else
         respond_to do |format|
-          format.json { render :json => {:type_of_ticket => @type_of_ticket.errors}, status: :unprocessable_entity}
-          format.html { redirect_to edit_type_of_ticket_path}
+          format.json { render :json => { :type_of_ticket => @type_of_ticket.errors }, status: :unprocessable_entity }
+          format.html { redirect_to edit_type_of_ticket_path }
         end
       end
     rescue ActiveRecord::RecordNotFound => e
-      render json: {error: e.message}, status: :not_found
+      render json: { error: e.message }, status: :not_found
     end
   end
   
@@ -68,17 +68,17 @@ class TypeOfTicketsController < ApplicationController
       @type_of_ticket = TypeOfTicket.find(params[:id])
       if @type_of_ticket.destroy
         respond_to do |format|
-          format.json { render :json => {:message => "Type Of Tickets was deleted successfully"}, status: :ok}
-          format.html { redirect_to type_of_tickets_path}
+          format.json { render :json => { :message => 'Type Of Tickets was deleted successfully' }, status: :ok }
+          format.html { redirect_to type_of_tickets_path }
         end
       else
         respond_to do |format|
-          format.json { render :json => {:type_of_ticket => @type_of_ticket.errors}, status: :unprocessable_entity}
+          format.json { render :json => { :type_of_ticket => @type_of_ticket.errors }, status: :unprocessable_entity }
           format.html
         end
       end
     rescue ActiveRecord::RecordNotFound => e
-      render json: {error: e.message}, status: :not_found
+      render json: { error: e.message }, status: :not_found
     end
   end
 

@@ -1,94 +1,93 @@
 require 'rails_helper'
 
 RSpec.describe AudisController, type: :controller do
-  context "GET #index" do
-    it "should display all the audis" do
+  context 'GET #index' do
+    it 'should display all the audis' do
       movie_hall = FactoryGirl.create(:movie_hall)
-      audi = FactoryGirl.create(:audi ,movie_hall_id: movie_hall.id)
+      FactoryGirl.create(:audi, movie_hall_id: movie_hall.id)
       get :index, format: 'json'
       response.should have_http_status(:ok)
     end
   end
 
-  context "GET #show" do
-    it "should show audi with given id" do
+  context 'GET #show' do
+    it 'should show audi with given id' do
       movie_hall = FactoryGirl.create(:movie_hall)
-      audi = FactoryGirl.create(:audi ,movie_hall_id: movie_hall.id)
-      get :show, id: audi.id , format: :json
+      audi = FactoryGirl.create(:audi , movie_hall_id: movie_hall.id)
+      get :show, id: audi.id, format: :json
       response.should have_http_status(:ok)
     end
   end
 
-  context "GET #edit" do
-    it "should edit audi with given id" do
+  context 'GET #edit' do
+    it 'should edit audi with given id' do
       movie_hall = FactoryGirl.create(:movie_hall)
-      audi = FactoryGirl.create(:audi ,movie_hall_id: movie_hall.id)
+      audi = FactoryGirl.create(:audi, movie_hall_id: movie_hall.id)
       get :edit, id: audi.id, format: :json
       response.should have_http_status(:ok)
     end
   end
 
-  context "POST #create" do 
-    it "should create a valid audi with all attributes" do 
+  context 'POST #create' do 
+    it 'should create a valid audi with all attributes' do 
       movie_hall = FactoryGirl.create(:movie_hall)
-      post :create, audi: { code: "A7878A", no_of_seats: Faker::Number.number(2), movie_hall_id:movie_hall.id }, format: :json
+      post :create, audi: { code: 'A7878A', no_of_seats: Faker::Number.number(2), movie_hall_id: movie_hall.id }, format: :json
       response.should have_http_status(:ok)
     end
   end 
 
-  context "PUT #update" do
-    it "should update the audi with valid attributes" do
+  context 'PUT #update' do
+    it 'should update the audi with valid attributes' do
       movie_hall = FactoryGirl.create(:movie_hall)
-      audi = FactoryGirl.create(:audi ,movie_hall_id: movie_hall.id)
-      put :update, id:audi.id, audi: { code: audi.code, no_of_seats: audi.no_of_seats}, format: :json
+      audi = FactoryGirl.create(:audi, movie_hall_id: movie_hall.id)
+      put :update, id: audi.id, audi: { code: audi.code, no_of_seats: audi.no_of_seats }, format: :json
       expect(response).to redirect_to audi_path(audi.id)
     end
   end
 
-  context "DELETE #destroy" do
-    it "should delete the audi" do
+  context 'DELETE #destroy' do
+    it 'should delete the audi' do
       movie_hall = FactoryGirl.create(:movie_hall)
-      audi = FactoryGirl.create(:audi ,movie_hall_id: movie_hall.id)
-      delete :destroy,  id: audi.id, format: :json
+      audi = FactoryGirl.create(:audi, movie_hall_id: movie_hall.id)
+      delete :destroy, id: audi.id, format: :json
       response.should have_http_status(:ok)
     end
   end
 
-  context "GET #show" do
-    it "should not show invalid audi" do
+  context 'GET #show' do
+    it 'should not show invalid audi' do
       movie_hall = FactoryGirl.create(:movie_hall)
-      audi = FactoryGirl.create(:audi ,movie_hall_id: movie_hall.id)
-      get :show, id:500, format: :json
+      FactoryGirl.create(:audi, movie_hall_id: movie_hall.id)
+      get :show, id: 500, format: :json
       response.should have_http_status(:unprocessable_entity)
     end
-    it "should not show invalid attribute" do
+    it 'should not show invalid attribute' do
       movie_hall = FactoryGirl.create(:movie_hall)
-      audi = FactoryGirl.create(:audi ,movie_hall_id: movie_hall.id)
+      FactoryGirl.create(:audi, movie_hall_id: movie_hall.id)
       get :show, id: 'ABC', format: :json
       response.should have_http_status(:unprocessable_entity)
     end
   end
 
-  context "GET #edit" do
-    it "should not edit invalid audi" do
+  context 'GET #edit' do
+    it 'should not edit invalid audi' do
       movie_hall = FactoryGirl.create(:movie_hall)
-      audi = FactoryGirl.create(:audi ,movie_hall_id: movie_hall.id)
-      get :edit, id:500, format: :json
+      FactoryGirl.create(:audi, movie_hall_id: movie_hall.id)
+      get :edit, id: 500, format: :json
       response.should have_http_status(:not_found)
     end
   end
 
   context 'POST #create' do
     it 'should not create a audi with invalid attributes' do
-      movie_hall = FactoryGirl.create(:movie_hall)
-      post :create, audi: {code:  "A7878A"},format: :json
+      post :create, audi: { code:  'A7878A' },format: :json
       response.should have_http_status(:unprocessable_entity)
     end
 
     it 'should not create a audi with nil values' do
       movie_hall = FactoryGirl.create(:movie_hall)
-      audi = FactoryGirl.create(:audi ,movie_hall_id: movie_hall.id)
-      post :create, audi: {code: nil}, format: :json
+      FactoryGirl.create(:audi, movie_hall_id: movie_hall.id)
+      post :create, audi: { code: nil }, format: :json
       response.should have_http_status(:unprocessable_entity)
     end
   end
@@ -96,14 +95,14 @@ RSpec.describe AudisController, type: :controller do
   context 'PUT #update' do
     it 'should not update audi with invalid id' do
       movie_hall = FactoryGirl.create(:movie_hall)
-      audi = FactoryGirl.create(:audi ,movie_hall_id: movie_hall.id)
-      put :update, id:511, audi: {code: "ABC111"}, format: :json
+      FactoryGirl.create(:audi, movie_hall_id: movie_hall.id)
+      put :update, id: 511, audi: { code: 'ABC111' }, format: :json
       response.should have_http_status(:not_found)
     end
     it 'should not update audi with invalid attributes' do
       movie_hall = FactoryGirl.create(:movie_hall)
-      audi = FactoryGirl.create(:audi ,movie_hall_id: movie_hall.id)
-      put :update, id: audi.id, audi: { code: nil, no_of_seats: Faker::Number.number(2), movie_hall_id:movie_hall.id }, format: :json
+      audi = FactoryGirl.create(:audi, movie_hall_id: movie_hall.id)
+      put :update, id: audi.id, audi: { code: nil, no_of_seats: Faker::Number.number(2), movie_hall_id: movie_hall.id }, format: :json
       response.should have_http_status(:unprocessable_entity)
     end
   end 
@@ -111,8 +110,8 @@ RSpec.describe AudisController, type: :controller do
   context 'DELETE #destroy' do
     it 'should not delete a audi with invalid id' do
       movie_hall = FactoryGirl.create(:movie_hall)
-      audi = FactoryGirl.create(:audi ,movie_hall_id: movie_hall.id)
-      delete :destroy, id:555,format: :json
+      audi = FactoryGirl.create(:audi, movie_hall_id: movie_hall.id)
+      delete :destroy, id: 555,format: :json
       response.should have_http_status(:not_found)
     end
   end

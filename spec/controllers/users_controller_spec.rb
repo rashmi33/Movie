@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-  context "GET #index" do
-    it "should display all the users" do
+  context 'GET #index' do
+    it 'should display all the users' do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
@@ -11,8 +11,8 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  context "GET #show" do
-    it "should show user with given id" do
+  context 'GET #show' do
+    it 'should show user with given id' do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
@@ -21,8 +21,8 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  context "GET #edit" do
-    it "should edit user with given id" do
+  context 'GET #edit' do
+    it 'should edit user with given id' do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
@@ -31,8 +31,8 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  context "POST #create" do 
-    it "should create a valid user with all attributes" do 
+  context 'POST #create' do 
+    it 'should create a valid user with all attributes' do 
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       post :create,  user: { name: Faker::Name.first_name, address: Faker::Address.street_address, phone_no: Faker::Number.number(10), audi_id: audi.id, movie_hall_id:movie_hall.id}, format: :json
@@ -40,8 +40,8 @@ RSpec.describe UsersController, type: :controller do
     end
   end 
 
-  context "PUT #update" do
-    it "should update the user with valid attributes" do
+  context 'PUT #update' do
+    it 'should update the user with valid attributes' do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
@@ -50,8 +50,8 @@ RSpec.describe UsersController, type: :controller do
     end 
   end
 
-  context "DELETE #destroy" do
-    it "should delete the user" do
+  context 'DELETE #destroy' do
+    it 'should delete the user' do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
@@ -60,15 +60,15 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  context "GET #show" do
-    it "should not show invalid user" do
+  context 'GET #show' do
+    it 'should not show invalid user' do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
       get :show, id:500, format: :json
       response.should have_http_status(:unprocessable_entity)
     end
-    it "should not show invalid attribute" do
+    it 'should not show invalid attribute' do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
@@ -77,8 +77,8 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  context "GET #edit" do
-    it "should not edit invalid user" do
+  context 'GET #edit' do
+    it 'should not edit invalid user' do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
@@ -107,10 +107,10 @@ RSpec.describe UsersController, type: :controller do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
-      put :update, id:511, user: {name: "ABC"}, format: :json
+      put :update, id:511, user: {name: 'ABC'}, format: :json
       response.should have_http_status(:not_found)
     end
-    it "should not update the user with invalid attributes" do
+    it 'should not update the user with invalid attributes' do
       movie_hall = FactoryGirl.create(:movie_hall)
       audi = FactoryGirl.create(:audi)
       user = FactoryGirl.create(:user ,movie_hall_id: movie_hall.id, audi_id: audi.id)
